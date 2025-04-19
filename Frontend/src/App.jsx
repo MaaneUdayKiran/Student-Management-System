@@ -8,7 +8,6 @@ import AddStudent from './components/AddStudent';
 import EditStudent from './components/EditStudent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Dashboard from './components/Dashboard';
 import './App.css';
 
 

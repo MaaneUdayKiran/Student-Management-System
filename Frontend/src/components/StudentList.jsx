@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../App.css'
 
 const StudentList = () => {
   const [students, setStudents] = useState([]);
@@ -48,25 +49,27 @@ const StudentList = () => {
   const totalPages = Math.ceil(filteredStudents.length / studentsPerPage);
 
   return (
-    <div className="container mt-4">
-      <ToastContainer />
-      <h2>Student List</h2>
-
-      <div className="d-flex justify-content-between mb-3">
-        <Link to="/students/add" className="btn btn-primary">Add Student</Link>
-        <input
-          type="text"
-          className="form-control w-50"
-          placeholder="Search by name..."
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1);
-          }}
-        />
-      </div>
-
-      <table className="table table-bordered table-striped">
+    <div className="student-table container-fluid">
+    <h2>Student List</h2>
+  
+    {/* Search and Add Student */}
+    <div className="d-flex justify-content-between mb-3 flex-wrap">
+      <Link to="/students/add" className="btn btn-primary mb-2">Add Student</Link>
+      <input
+        type="text"
+        className="form-control w-50 mb-2"
+        placeholder="Search by name..."
+        value={searchTerm}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          setCurrentPage(1);
+        }}
+      />
+    </div>
+  
+    {/* Responsive Table */}
+    <div className="table-responsive">
+      <table className="table table-striped bg-white rounded-5">
         <thead className="table-dark">
           <tr>
             <th>Student ID</th>
@@ -91,8 +94,18 @@ const StudentList = () => {
                 <td>{student.enrollmentYear}</td>
                 <td>{student.isActive ? "Active" : "Inactive"}</td>
                 <td>
-                  <Link to={`/students/edit/${student._id}`} className="btn btn-warning btn-sm me-2 mb-2">Edit</Link>
-                  <button className="btn btn-danger btn-sm me-2" onClick={() => deleteStudent(student._id)}>Delete</button>
+                  <Link
+                    to={`/students/edit/${student._id}`}
+                    className="btn btn-warning btn-sm me-2 mb-2"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    className="btn btn-danger btn-sm me-2"
+                    onClick={() => deleteStudent(student._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))
@@ -103,23 +116,25 @@ const StudentList = () => {
           )}
         </tbody>
       </table>
-
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <nav>
-          <ul className="pagination justify-content-center">
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
-                <button className="page-link" onClick={() => setCurrentPage(i + 1)}>
-                  {i + 1}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
     </div>
-  );
-};
+  
+    {/* Pagination */}
+    {totalPages > 1 && (
+      <nav>
+        <ul className="pagination justify-content-center mt-3">
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <li key={i} className={`page-item ${currentPage === i + 1 ? 'active' : ''}`}>
+              <button className="page-link" onClick={() => setCurrentPage(i + 1)}>
+                {i + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+  </div>
+  
 
+  )
+}
 export default StudentList;

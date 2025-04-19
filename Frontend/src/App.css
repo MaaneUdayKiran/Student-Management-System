@@ -75,3 +75,30 @@ Button{
 Statistic{
   color: black;
 }
+/* Navbar.css */
+
+@media (min-width: 768px) {
+  #desktop-links {
+    display: flex !important;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .menu-button {
+    display: none !important;
+  }
+ 
+}
+
+navbar{
+  width: 100%;
+}
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+}
+
+table {
+  min-width: 600px; /* optional: prevents column squish */
+}
