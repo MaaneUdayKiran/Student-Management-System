@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api/students'
+  baseURL: 'https://student-management-system-1cv3.onrender.com/api/students'
 });
 
 export default api;
