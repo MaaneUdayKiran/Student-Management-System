@@ -8,8 +8,10 @@ const StudentRoutes = require('./routes/Studentroutes.cjs');
 dotenv.config();
 
 const app = express();
-app.use(cors());
-app.use(express.json()); // Correct usage
+app.use(cors({
+  origin: 'https://student-management-system-310.netlify.app',
+  credentials: true
+}));app.use(express.json()); // Correct usage
 
 app.use('/api/students', StudentRoutes);
 
