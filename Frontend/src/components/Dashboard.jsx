@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Row, Statistic } from 'antd';
 import api from '../services/api';
-import '../App.css'
+import '../App.css';
 import {
   PieChart, Pie, Cell, Tooltip,
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer
@@ -30,16 +30,39 @@ const Dashboard = () => {
   }));
 
   return (
-    <div style={{ padding: '20px' }}>
-      <Row gutter={16} className="mb-4">
-        <Col span={8}><Card className='bg-dark-subtle '><Statistic  title={<span style={{ color: 'black' }}>Total Students</span>} value={data.total} /></Card></Col>
-        <Col span={8}><Card className='bg-dark-subtle' ><Statistic title={<span style={{ color: 'black' }}>Active Students</span>} value={data.active} /></Card></Col>
-        <Col span={8}><Card className='bg-dark-subtle'><Statistic title={<span style={{ color: 'black' }}>Departments</span>} value={Object.keys(data.departments).length} /></Card></Col>
+    <div style={{ padding: '1rem' }}>
+      {/* Statistics Cards */}
+      <Row gutter={[16, 16]}>
+        <Col xs={24} sm={12} md={8}>
+          <Card className="bg-dark-subtle">
+            <Statistic
+              title={<span style={{ color: 'black' }}>Total Students</span>}
+              value={data.total}
+            />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={8}>
+          <Card className="bg-dark-subtle">
+            <Statistic
+              title={<span style={{ color: 'black' }}>Active Students</span>}
+              value={data.active}
+            />
+          </Card>
+        </Col>
+        <Col xs={24} sm={24} md={8}>
+          <Card className="bg-dark-subtle">
+            <Statistic
+              title={<span style={{ color: 'black' }}>Departments</span>}
+              value={Object.keys(data.departments).length}
+            />
+          </Card>
+        </Col>
       </Row>
 
-      <Row gutter={16}>
-        <Col span={12}>
-          <Card className='bg-dark-subtle'  title="Department-wise Distribution (Pie)">
+      {/* Charts */}
+      <Row gutter={[16, 16]} className="mt-3">
+        <Col xs={24} md={12}>
+          <Card className="bg-dark-subtle" title="Department-wise Distribution (Pie)">
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -50,7 +73,6 @@ const Dashboard = () => {
                   cy="50%"
                   outerRadius={100}
                   label
-                  
                 >
                   {departmentData.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -62,8 +84,8 @@ const Dashboard = () => {
           </Card>
         </Col>
 
-        <Col span={12}>
-          <Card className='bg-dark-subtle' title="Department-wise Distribution (Bar)">
+        <Col xs={24} md={12}>
+          <Card className="bg-dark-subtle" title="Department-wise Distribution (Bar)">
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={departmentData}>
                 <CartesianGrid strokeDasharray="3 3" />

@@ -39,8 +39,10 @@ const StudentList = () => {
   }, []);
 
   const filteredStudents = students.filter(student =>
-    `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
+    `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    student.studentId.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  
 
   // Pagination logic
   const indexOfLast = currentPage * studentsPerPage;
@@ -50,15 +52,16 @@ const StudentList = () => {
 
   return (
     <div className="student-table container-fluid">
-    <h2>Student List</h2>
+    <h2 className='text-center m-5 font-bold text-white '>Student List</h2>
+
   
     {/* Search and Add Student */}
     <div className="d-flex justify-content-between mb-3 flex-wrap">
-      <Link to="/students/add" className="btn btn-primary mb-2">Add Student</Link>
+      <Link to="/students/add" className="btn btn-outline-light mb-2">Add Student</Link>
       <input
         type="text"
         className="form-control w-50 mb-2"
-        placeholder="Search by name..."
+        placeholder="Search by Id or name..."
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);
@@ -68,8 +71,8 @@ const StudentList = () => {
     </div>
   
     {/* Responsive Table */}
-    <div className="table-responsive">
-      <table className="table table-striped bg-white rounded-5">
+    <div className="responsive-table-container ">
+      <table  className="table table-striped bg-white rounded-5">
         <thead className="table-dark">
           <tr>
             <th>Student ID</th>
@@ -115,7 +118,10 @@ const StudentList = () => {
             </tr>
           )}
         </tbody>
+        
+
       </table>
+      <p class="scroll-hint">← Swipe to scroll →</p>
     </div>
   
     {/* Pagination */}

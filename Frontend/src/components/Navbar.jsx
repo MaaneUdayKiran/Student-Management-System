@@ -31,7 +31,7 @@ const Navbar = () => {
           <Link
             key={item.key}
             to={item.label.props.to}
-            className={`nav-link text-white ${
+            className={`nav-link text-white btn btn-dark p-2 ${
               location.pathname === item.label.props.to ? 'fw-bold' : ''
             }`}
           >
@@ -50,7 +50,7 @@ const Navbar = () => {
 
       {/* Drawer for Mobile View */}
       <Drawer
-        title="Navigation"
+        title="Menu"
         placement="right"
         onClose={onClose}
         open={open}

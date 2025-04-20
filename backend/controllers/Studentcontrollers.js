@@ -17,11 +17,18 @@ async function getStudentById(req, res) {
 }
 
 async function createStudent(req, res) {
-  const existingStudent = await Student.findOne({ studentId: req.body.studentId });
+  // const existingStudent = await Student.findOne({ studentId: req.body.studentId });
 
-if (existingStudent) {
-  return res.status(400).json({ message: "Student with this ID already exists." });
-}
+  const existingStudent = await Student.findOne({ studentId: req.body.studentId });
+  if (existingStudent) {
+    return res.status(400).json({ message: "Student with this ID already exists." });
+  }
+  
+  const existingEmail = await Student.findOne({ email: req.body.email });
+  if (existingEmail) {
+    return res.status(400).json({ message: "Email already exists." });
+  }
+  
 
   const newStudent = new Student(req.body);
   await newStudent.save();
@@ -39,22 +46,7 @@ async function deleteStudent(req, res) {
 }
 
 
-// router.get('/dashboard', async (req, res) => {
-//   try {
-//     const students = await Student.find();
-//     const total = students.length;
-//     const active = students.filter(s => s.isActive).length;
 
-//     const departments = {};
-//     students.forEach(s => {
-//       departments[s.department] = (departments[s.department] || 0) + 1;
-//     });
-
-//     res.json({ total, active, departments });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Server Error' });
-//   }
-// });
 
 
 async function getDashboardData(req,res){

@@ -1,71 +1,6 @@
-// // src/components/AddStudent.jsx
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import api from '../services/api';
-// import { toast } from 'react-toastify';
 
-
-// const AddStudent = () => {
-//   const navigate = useNavigate();
-//   const [formData, setFormData] = useState({
-//     studentId: '',
-//     firstName: '',
-//     lastName: '',
-//     email: '',
-//     dob: '',
-//     department: '',
-//     enrollmentYear: '',
-//     isActive: true
-//   });
-
-//   const handleChange = (e) => {
-//     const { name, value, type, checked } = e.target;
-//     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     await api.post('/', formData);
-//     navigate('/students');
-//   };
-
-//   return (
-//     <div className="container mt-4">
-//       <h2>Add Student</h2>
-//       <form onSubmit={handleSubmit}>
-//         {["studentId", "firstName", "lastName", "email", "dob", "department", "enrollmentYear"].map(field => (
-//           <div className="mb-3" key={field}>
-//             <label className="form-label">{field}</label>
-//             <input
-//               type={field === "dob" ? "date" : field === "email" ? "email" : "text"}
-//               className="form-control"
-//               name={field}
-//               value={formData[field]}
-//               onChange={handleChange}
-//               required
-//             />
-//           </div>
-//         ))}
-//         <div className="form-check mb-3">
-//           <input
-//             type="checkbox"
-//             className="form-check-input"
-//             name="isActive"
-//             checked={formData.isActive}
-//             onChange={handleChange}
-//           />
-//           <label className="form-check-label">Is Active</label>
-//         </div>
-//         <button type="submit" className="btn btn-success">Add</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default AddStudent;
-
-// src/components/AddStudent.jsx
 import React from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Button,
@@ -83,33 +18,86 @@ import '../App.css'
 
 const { Option } = Select;
 
+
 const AddStudent = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const studentIdRef = useRef(null); // 👈 create ref for Student ID input
+  const emailRef = useRef(null);
 
+
+  // const onFinish = async (values) => {
+  //   const formattedValues = {
+  //     ...values,
+  //     dob: values.dob.format('YYYY-MM-DD'), // format date
+  //   };
+  //   try {
+  //     await api.post('/', formattedValues);
+  //     message.success('Student added successfully');
+  //     navigate('/students');
+  //   } catch (error) {
+  //     message.error('Failed to add student');
+  //   }
+  // };
   const onFinish = async (values) => {
     const formattedValues = {
       ...values,
-      dob: values.dob.format('YYYY-MM-DD'), // format date
+      dob: values.dob.format('YYYY-MM-DD'),
     };
+  
     try {
       await api.post('/', formattedValues);
       message.success('Student added successfully');
       navigate('/students');
     } catch (error) {
-      message.error('Failed to add student');
+      if (
+        error.response &&
+        error.response.status === 400 &&
+        error.response.data.message
+      ) {
+        const errorMsg = error.response.data.message;
+    
+        let fieldsWithErrors = [];
+    
+        if (errorMsg.includes('Student with this ID')) {
+          fieldsWithErrors.push({
+            name: 'studentId',
+            errors: ['Student ID already exists.'],
+          });
+        }
+    
+        if (errorMsg.includes('Email')) {
+          fieldsWithErrors.push({
+            name: 'email',
+            errors: ['Email already exists.'],
+          });
+        }
+    
+        form.setFields(fieldsWithErrors);
+    
+        // Focus on the first error field
+        if (fieldsWithErrors.some(field => field.name === 'studentId')) {
+          studentIdRef.current?.focus();
+        } else if (fieldsWithErrors.some(field => field.name === 'email')) {
+          emailRef.current?.focus();
+        }
+      } else {
+        message.error('Failed to add student');
+      }
     }
-  };
+  };    
+  
 
   return (
-    <div className="container-fluid mt-1  bg-white w-50 rounded-3">
-      <h2 className="mt-5 text-center">Add Student</h2>
+    <div className="container-fluid bg-white rounded-3 pr-md-4   add-student-form">
+      <h2 className="mt-1 text-center pb-lg-1">Add Student</h2>
       <Form
         form={form}
         layout="vertical"
         onFinish={onFinish}
-        style={{ maxWidth: 600 }}
+        style={{ maxWidth: 600, maxHeight: '80vh', overflowY: 'auto' }}
         variant='outlined'
+        
       >
         <Form.Item
           label="Student ID"
@@ -117,7 +105,7 @@ const AddStudent = () => {
           rules={[{ required: true, message: 'Please enter Student ID' }]}
         >
         
-          <Input />
+        <Input ref={studentIdRef} />
         </Form.Item>
 
         <Form.Item
@@ -137,14 +125,14 @@ const AddStudent = () => {
         </Form.Item>
 
         <Form.Item
-          label="Email"
+          label="Email-id"
           name="email"
           rules={[
             { required: true, message: 'Please enter email' },
             { type: 'email', message: 'Invalid email format' },
           ]}
         >
-          <Input />
+          <Input ref={emailRef} />
         </Form.Item>
 
         <Form.Item
@@ -187,7 +175,7 @@ const AddStudent = () => {
         </Form.Item>
 
         <Form.Item className="mb-5 btn1">
-          <Button  styles={{margin:"4"}} type="primary" htmlType="submit">
+          <Button  styles={{margin:"4px"}} type="primary" htmlType="submit">
             Add Student
           </Button>
         </Form.Item>

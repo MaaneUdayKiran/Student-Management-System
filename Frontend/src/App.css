@@ -89,6 +89,37 @@ Statistic{
   }
  
 }
+@media (max-width: 768px) {
+  .ant-form-item-label > label {
+    font-size: 14px;
+  }
+
+  .ant-input,
+  .ant-picker,
+  .ant-select-selector,
+  .ant-input-number {
+    font-size: 14px;
+  }
+
+  .btn1 {
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn1 button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  h2 {
+    font-size: 20px;
+  }
+
+  .ant-form {
+    padding: 5px;
+  }
+}
 
 navbar{
   width: 100%;
@@ -101,4 +132,83 @@ navbar{
 
 table {
   min-width: 600px; /* optional: prevents column squish */
+}
+
+.add-student-form {
+  max-width: 500px;
+}
+
+@media screen and (max-width: 768px) {
+  .add-student-form {
+    width: 90% !important;
+  
+  }
+
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
+
+  .ant-btn {
+    width: 100%;
+  }
+}
+
+.responsive-table-container {
+  overflow-x:  auto;
+  -webkit-overflow-scrolling: touch     ;
+  scrollbar-width: thin;         /* Firefox */
+  scrollbar-color: #f0eded #f1f1f1; /* Firefox */
+}
+Form{
+  padding: 10px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch     ;
+  scrollbar-width: thin;         /* Firefox */
+  scrollbar-color: #9f9e9e #f1f1f1; /* Firefox */
+}
+
+
+
+/* For Chrome, Edge, Safari */
+.responsive-table-container::-webkit-scrollbar {
+  height: 8px;
+}
+Form::-webkit-scrollbar{
+  height: 8px;
+}
+.responsive-table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+Form::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.responsive-table-container::-webkit-scrollbar-thumb {
+  background-color: #f8f6f6;
+  border-radius: 4px;
+}
+Form::-webkit-scrollbar-thumb {
+  background-color: #f8f6f6;
+  /* border-radius: 4px; */
+}
+
+.responsive-table-container::-webkit-scrollbar-thumb:hover {
+  background: #efeeee;
+}
+Form::-webkit-scrollbar-thumb:hover {
+  background: #1f1e1e;
+}
+
+.scroll-hint {
+  font-size: 12px;
+  text-align: center;
+  color: #f9f7f7;
+  margin-bottom: 5px;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .scroll-hint {
+    display: block;
+  }
 }

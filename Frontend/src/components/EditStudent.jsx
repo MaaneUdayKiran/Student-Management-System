@@ -105,10 +105,10 @@ const EditStudent = () => {
   };
 
   return (
-    <div className="container mt-4 w-50">
-      <h2>Edit Student</h2>
+    <div className="container mt-4 bg-white w-50">
+      <h2 className='text-center p-lg-1 m-4'>Edit Student Details</h2>
       <Form
-        layout="vertical"
+        layout=""
         form={form}
         variant="outlined"
         style={{ maxWidth: 500 }}
@@ -152,7 +152,7 @@ const EditStudent = () => {
           <Checkbox>Is Active</Checkbox>
         </Form.Item>
 
-        <Form.Item>
+        <Form.Item className='btn1'>
           <Button type="primary" htmlType="submit">
             Update Student
           </Button>
