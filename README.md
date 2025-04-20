@@ -1,7 +1,7 @@
 # 🎓 Student Management System
 
 A full-stack **Student Management System** built with the **MERN Stack** (MongoDB, Express.js, React.js, Node.js). This application allows you to add, view, edit, and delete student records efficiently with features like pagination, search, responsive design, toast notifications, and mobile-friendly navigation.
-
+View my Website at https://student-management-system-310.netlify.app/
 ---
 
 ## 🔧 Features
