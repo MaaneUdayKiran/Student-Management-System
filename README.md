@@ -34,9 +34,14 @@ View my Website at https://student-management-system-310.netlify.app/
 
 ## 📸 Screenshots
 
-| Desktop View | Mobile View |
+
 |--------------|-------------|
-| ![Desktop Screenshot](screenshots/desktop.png) | ![Mobile Screenshot](screenshots/mobile.png) |
+|![image](https://github.com/user-attachments/assets/d6f370f5-5528-4b96-9a4b-baceff6df234)
+![image](https://github.com/user-attachments/assets/4f2dcccf-9b59-4e46-9e81-da874b4be6d0)
+![image](https://github.com/user-attachments/assets/9a808603-3560-47d0-8244-a09ce48ec3ef)
+
+
+
 
 ---
 
